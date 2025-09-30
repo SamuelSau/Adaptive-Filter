@@ -1,0 +1,14 @@
+# Build directories
+/Debug/
+/Release/
+
+# Binaries
+*.elf
+*.bin
+*.hex
+*.map
+
+# CubeIDE settings (optional)
+/.settings/
+/.project
+.cproject
