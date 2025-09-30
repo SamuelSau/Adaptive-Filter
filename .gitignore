@@ -1,6 +1,6 @@
 # Build directories
-/Debug/
-/Release/
+Debug/
+Release/
 
 # Binaries
 *.elf
@@ -9,6 +9,9 @@
 *.map
 
 # CubeIDE settings (optional)
-/.settings/
-/.project
+.settings/
+.project
 .cproject
+
+# Eclipse/IDE metadata
+.metadata/
