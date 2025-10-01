@@ -15,3 +15,7 @@ Release/
 
 # Eclipse/IDE metadata
 .metadata/
+
+# Logic analyzer files
+session_1.pvs
+session_1.sr
