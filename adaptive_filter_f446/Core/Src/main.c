@@ -69,6 +69,13 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+#define BUFFER_SIZE      256                // total DMA buffer size (must be even for half-buffer)
+volatile uint16_t adc_buffer[BUFFER_SIZE];   // DMA destination (static/global)
+volatile uint8_t adc_half_ready = 0;
+volatile uint8_t adc_full_ready = 0;
+
+#define VREF             3.3f
+#define ADC_MAX          4095.0f
 
   /* USER CODE END 1 */
 
@@ -95,8 +102,18 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+
   printf("HCLK = %lu Hz\r\n", HAL_RCC_GetHCLKFreq());
   printf("Hello from STM32!\r\n");
+
+  void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+  {
+      if (htim->Instance == TIM2)   // Check if it's TIM2
+      {
+          HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // Toggle NUCLEO LED for test
+      }
+  }
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
