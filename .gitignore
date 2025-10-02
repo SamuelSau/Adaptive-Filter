@@ -16,6 +16,5 @@ Release/
 # Eclipse/IDE metadata
 .metadata/
 
-# Logic analyzer files
-session_1.pvs
-session_1.sr
+# Logic analyzer files (used to verify TIM2 interrupts, but not needed in repo)
+verified_hardware/
