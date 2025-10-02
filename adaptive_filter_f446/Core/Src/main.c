@@ -26,7 +26,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "arm_math.h"
+#include "dsp/filtering_functions.h"
 #include <stdio.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -69,6 +72,8 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+
+//testing for ADC buffer being filled through DMA
 #define BUFFER_SIZE      256                // total DMA buffer size (must be even for half-buffer)
 volatile uint16_t adc_buffer[BUFFER_SIZE];   // DMA destination (static/global)
 volatile uint8_t adc_half_ready = 0;
@@ -76,6 +81,12 @@ volatile uint8_t adc_full_ready = 0;
 
 #define VREF             3.3f
 #define ADC_MAX          4095.0f
+
+//initializing test filter
+arm_fir_instance_f32 S;
+float32_t coeffs[32];
+float32_t state[32 + 64];
+arm_fir_init_f32(&S, 32, coeffs, state, 64);
 
   /* USER CODE END 1 */
 
@@ -112,6 +123,12 @@ volatile uint8_t adc_full_ready = 0;
       {
           HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);  // Toggle NUCLEO LED for test
       }
+  }
+
+  float adc_volt[BUFFER_SIZE];
+  for (int i = 0; i < BUFFER_SIZE; i++) {
+      adc_volt[i] = (adc_buffer[i] / ADC_MAX) * VREF;
+      printf("adc_volt[i]: %d\r\n", adc_volt[i]);
   }
 
   /* USER CODE END 2 */
