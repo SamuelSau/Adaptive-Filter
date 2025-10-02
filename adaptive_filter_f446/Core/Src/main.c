@@ -125,6 +125,7 @@ arm_fir_init_f32(&S, 32, coeffs, state, 64);
       }
   }
 
+  //testing to convert ADC buffer into voltages for DSP processing (filtering)
   float adc_volt[BUFFER_SIZE];
   for (int i = 0; i < BUFFER_SIZE; i++) {
       adc_volt[i] = (adc_buffer[i] / ADC_MAX) * VREF;
